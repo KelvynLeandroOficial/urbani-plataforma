@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urbani - Nova Solicitação</title>
+    <style>
+        /* CSS Base Idêntico para Manter Proporções */
+        * { box-sizing: border-box; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #f7f9fa; min-height: 100vh; padding: 15px; display: flex; justify-content: center; }
+        .container { display: grid; grid-template-columns: 240px 1fr; grid-template-rows: 80px 1fr; grid-template-areas: "aside header" "aside main"; gap: 20px; width: 100%; max-width: 1300px; }
+        
+        .aside { grid-area: aside; background-color: #ff5a00; padding: 30px 15px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .profile-container { width: 75px; height: 75px; background-color: #1a1c24; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 30px; border: 2px solid #fff; }
+        .profile-icon { width: 32px; height: 32px; border: 3px solid #fff; border-radius: 50%; position: relative; }
+        .profile-icon::after { content: ''; position: absolute; width: 44px; height: 20px; border: 3px solid #fff; border-radius: 22px 22px 0 0; top: 32px; left: -9px; background-color: #1a1c24; }
+        
+        .nav-btn { width: 100%; background-color: #1a1c24; color: #ff5a00; padding: 15px; border-radius: 35px; text-decoration: none; text-align: center; font-size: 11px; font-weight: bold; text-transform: uppercase; border: none; cursor: pointer; }
+        .nav-btn.active { color: #ffffff; }
+        
+        .header { grid-area: header; background-color: #1a1c24; color: #ff5a00; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: bold; letter-spacing: 1px; border-radius: 40px; text-transform: uppercase; }
+        .main { grid-area: main; display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; }
+
+        /* Formulário Dentro da Caixa Escura */
+        .form-container { background-color: #1a1c24; border-radius: 5px; padding: 25px; display: flex; flex-direction: column; gap: 12px; }
+        .form-title { background-color: #ffffff; color: #1a1c24; padding: 10px; border-radius: 15px; font-size: 13px; font-weight: bold; text-align: center; text-transform: uppercase; margin-bottom: 5px; }
+        
+        .form-field { width: 100%; padding: 10px; background-color: #d1d5db; border: none; border-radius: 4px; font-size: 13px; font-weight: bold; text-align: center; color: #000; }
+        select.form-field { text-align-last: center; }
+        textarea.form-field { height: 110px; resize: none; text-align: left; }
+        
+        .row-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        
+        /* Layout Lateral com Mapa e Botão de Envio Inferior */
+        .right-column { display: flex; flex-direction: column; gap: 15px; height: 100%; }
+        .map-container { background-color: #e3f2fd; border-radius: 4px; flex: 1; display: flex; align-items: center; justify-content: center; min-height: 380px; }
+        .map-icon { width: 60px; height: auto; }
+        
+        .btn-submit { width: 100%; background-color: #ff5a00; color: #ffffff; border: none; padding: 15px; font-size: 14px; font-weight: bold; border-radius: 20px; text-transform: uppercase; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <aside class="aside">
+            <div class="profile-container"><div class="profile-icon"></div></div>
+            <button class="nav-btn" onclick="location.href='dashboard.html'">Geral</button>
+            <button class="nav-btn active" onclick="location.href='nova_solicitacao.html'">Nova Solicitação</button>
+            <button class="nav-btn" onclick="location.href='comunidade.html'">Comunidade</button>
+            <button class="nav-btn" onclick="location.href='minhas_solicitacoes.html'">Minhas Solicitações</button>
+        </aside>
+
+        <header class="header">Solicitação de Serviço</header>
+
+        <main class="main">
+            <form class="form-container" action="processa_solicitacao.php" method="POST" enctype="multipart/form-data">
+                <div class="form-title">Nova Solicitação</div>
+                
+                <select class="form-field" name="categoria" required>
+                    <option value="">Selecione uma categoria ▼</option>
+                    <option value="Asfalto">Asfalto / Vias</option>
+                    <option value="Iluminação">Iluminação Pública</option>
+                </select>
+
+                <textarea class="form-field" name="descricao" placeholder="Descreva o problema urbano..."></textarea>
+
+                <div class="row-two">
+                    <input type="text" class="form-field" name="Cidade" placeholder="Cidade">
+                    <input type="text" class="form-field" name="Bairro" placeholder="Bairro">
+                </div>
+
+                <input type="text" class="form-field" name="rua" placeholder="Rua / Logradouro">
+                <input type="text" class="form-field" name="referencia" placeholder="Referência: [ Próximo à escola, mercado, praça... ]">
+                <input type="text" class="form-field" name="urgencia" placeholder="Urgência: [ Baixo ▼ ] [ Médio ▼ ] [ Alto ▼ ]">
+                <input type="text" class="form-field" placeholder="Adicionar mídia: [ Upload de imagem ]" onfocus="(this.type='file')" name="midia">
+            </form>
+
+            <div class="right-column">
+                <div class="map-container">
+                    <svg class="map-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#4285F4"/>
+                    </svg>
+                </div>
+                <button type="submit" class="btn-submit">Enviar solicitação</button>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

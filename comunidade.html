@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urbani - Comunidade</title>
+    <style>
+        * { box-sizing: border-box; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #f7f9fa; min-height: 100vh; padding: 15px; display: flex; justify-content: center; }
+        .container { display: grid; grid-template-columns: 240px 1fr; grid-template-rows: 80px 1fr; grid-template-areas: "aside header" "aside main"; gap: 20px; width: 100%; max-width: 1300px; }
+        
+        .aside { grid-area: aside; background-color: #ff5a00; padding: 30px 15px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .profile-container { width: 75px; height: 75px; background-color: #1a1c24; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 30px; border: 2px solid #fff; }
+        .profile-icon { width: 32px; height: 32px; border: 3px solid #fff; border-radius: 50%; position: relative; }
+        .profile-icon::after { content: ''; position: absolute; width: 44px; height: 20px; border: 3px solid #fff; border-radius: 22px 22px 0 0; top: 32px; left: -9px; background-color: #1a1c24; }
+        
+        .nav-btn { width: 100%; background-color: #1a1c24; color: #ff5a00; padding: 15px; border-radius: 35px; text-decoration: none; text-align: center; font-size: 11px; font-weight: bold; text-transform: uppercase; border: none; cursor: pointer; }
+        .nav-btn.active { color: #ffffff; }
+        
+        .header { grid-area: header; background-color: #1a1c24; color: #ff5a00; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: bold; letter-spacing: 1px; border-radius: 40px; text-transform: uppercase; }
+        .main { grid-area: main; display: flex; flex-direction: column; gap: 20px; }
+
+        /* KPIs Superiores */
+        .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .kpi-box { background-color: #1a1c24; color: #ff5a00; padding: 10px; font-size: 11px; font-weight: bold; text-align: center; border-radius: 15px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .kpi-value-mock { width: 85%; height: 25px; background-color: #ffffff; border-radius: 4px; color: #000; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+
+        /* Barra de Filtros em Linha Única Cinza */
+        .inline-filter-bar { background-color: #d1d5db; border-radius: 15px; padding: 10px; font-size: 13px; font-weight: bold; text-align: center; word-spacing: 5px; }
+
+        /* Grid de Cards da Comunidade (2 por Linha) */
+        .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card-solicitacao { background-color: #d1d5db; border-radius: 4px; padding: 15px; color: #000000; }
+        .card-solicitacao h3 { font-size: 14px; margin-bottom: 5px; font-weight: bold; }
+        .card-solicitacao p.author { font-size: 12px; font-style: italic; margin-bottom: 5px; font-weight: bold; }
+        .card-solicitacao p.location { font-size: 12px; font-weight: bold; margin-bottom: 8px; }
+        .card-solicitacao .desc-box { background-color: #ffffff; border-radius: 12px; padding: 10px; font-size: 13px; font-weight: bold; margin-bottom: 15px; line-height: 1.4; }
+        
+        .card-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .btn-action { padding: 8px; font-size: 12px; font-weight: bold; text-align: center; border-radius: 15px; border: none; color: #ffffff; cursor: pointer; }
+        .btn-green { background-color: #4caf50; }
+        .btn-red { background-color: #f44336; }
+        .btn-orange { background-color: #ff9800; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <aside class="aside">
+            <div class="profile-container"><div class="profile-icon"></div></div>
+            <button class="nav-btn" onclick="location.href='dashboard.html'">Geral</button>
+            <button class="nav-btn" onclick="location.href='nova_solicitacao.html'">Nova Solicitação</button>
+            <button class="nav-btn active" onclick="location.href='comunidade.html'">Comunidade</button>
+            <button class="nav-btn" onclick="location.href='minhas_solicitacoes.html'">Minhas Solicitações</button>
+        </aside>
+
+        <header class="header">Comunidade</header>
+
+        <main class="main">
+            <div class="kpi-row">
+                <div class="kpi-box">Solicitações Públicas <div class="kpi-value-mock"></div></div>
+                <div class="kpi-box">Mais Apoiadas <div class="kpi-value-mock"></div></div>
+                <div class="kpi-box">Em Análise <div class="kpi-value-mock">1</div></div>
+                <div class="kpi-box">Bairros Ativos <div class="kpi-value-mock"></div></div>
+            </div>
+
+            <div class="inline-filter-bar">
+                [Cidade ▼] [Bairro ▼] [Categoria ▼] [Status ▼] [Mais apoiadas ▼]
+            </div>
+
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="card-solicitacao">
+                    <h3>Solicitação ID-05</h3>
+                    <p class="author">Usuário escreveu:</p>
+                    <p class="location">Rua, Bairro, Cidade-Estado</p>
+                    <div class="desc-box">Buraco enorme em frente causando desvios forçados e congestionamento</div>
+                    <div class="card-actions"><button class="btn-action btn-green">Apoiar</button><button class="btn-action btn-red">Denunciar</button><button class="btn-action btn-orange">Ver mais</button></div>
+                </div>
+                <!-- Card 2 -->
+                <div class="card-solicitacao">
+                    <h3>Solicitação ID-05</h3>
+                    <p class="author">Usuário escreveu:</p>
+                    <p class="location">Rua, Bairro, Cidade-Estado</p>
+                    <div class="desc-box">Buraco enorme em frente causando desvios forçados e congestionamento</div>
+                    <div class="card-actions"><button class="btn-action btn-green">Apoiar</button><button class="btn-action btn-red">Denunciar</button><button class="btn-action btn-orange">Ver mais</button></div>
+                </div>
+                <!-- Card 3 -->
+                <div class="card-solicitacao">
+                    <h3>Solicitação ID-05</h3>
+                    <p class="author">Usuário escreveu:</p>
+                    <p class="location">Rua, Bairro, Cidade-Estado</p>
+                    <div class="desc-box">Buraco enorme em frente causando desvios forçados e congestionamento</div>
+                    <div class="card-actions"><button class="btn-action btn-green">Apoiar</button><button class="btn-action btn-red">Denunciar</button><button class="btn-action btn-orange">Ver mais</button></div>
+                </div>
+                <!-- Card 4 -->
+                <div class="card-solicitacao">
+                    <h3>Solicitação ID-05</h3>
+                    <p class="author">Usuário escreveu:</p>
+                    <p class="location">Rua, Bairro, Cidade-Estado</p>
+                    <div class="desc-box">Buraco enorme em frente causando desvios forçados e congestionamento</div>
+                    <div class="card-actions"><button class="btn-action btn-green">Apoiar</button><button class="btn-action btn-red">Denunciar</button><button class="btn-action btn-orange">Ver mais</button></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
