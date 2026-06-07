@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urbani - Minhas Solicitações</title>
+    <style>
+        * { box-sizing: border-box; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #f7f9fa; min-height: 100vh; padding: 15px; display: flex; justify-content: center; }
+        .container { display: grid; grid-template-columns: 240px 1fr; grid-template-rows: 80px 1fr; grid-template-areas: "aside header" "aside main"; gap: 20px; width: 100%; max-width: 1300px; }
+        
+        .aside { grid-area: aside; background-color: #ff5a00; padding: 30px 15px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .profile-container { width: 75px; height: 75px; background-color: #1a1c24; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 30px; border: 2px solid #fff; }
+        .profile-icon { width: 32px; height: 32px; border: 3px solid #fff; border-radius: 50%; position: relative; }
+        .profile-icon::after { content: ''; position: absolute; width: 44px; height: 20px; border: 3px solid #fff; border-radius: 22px 22px 0 0; top: 32px; left: -9px; background-color: #1a1c24; }
+        
+        .nav-btn { width: 100%; background-color: #1a1c24; color: #ff5a00; padding: 15px; border-radius: 35px; text-decoration: none; text-align: center; font-size: 11px; font-weight: bold; text-transform: uppercase; border: none; cursor: pointer; }
+        .nav-btn.active { color: #ffffff; }
+        
+        .header { grid-area: header; background-color: #1a1c24; color: #ff5a00; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: bold; letter-spacing: 1px; border-radius: 40px; text-transform: uppercase; }
+        .main { grid-area: main; display: flex; flex-direction: column; gap: 20px; }
+
+        /* Contadores Superiores */
+        .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .kpi-box { background-color: #1a1c24; color: #ff5a00; padding: 10px; font-size: 11px; font-weight: bold; text-align: center; border-radius: 15px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .kpi-value-mock { width: 85%; height: 25px; background-color: #ffffff; border-radius: 4px; color: #000; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+
+        /* Divisão Inferior (Histórico + Mapa) */
+        .content-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; align-items: start; }
+        
+        .feed-container { background-color: #1a1c24; border-radius: 5px; padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 450px; }
+        .feed-title { background-color: #ffffff; color: #1a1c24; padding: 10px; border-radius: 15px; font-size: 13px; font-weight: bold; text-align: center; text-transform: uppercase; }
+
+        /* Card Customizado para Histórico Próprio do Cidadão */
+        .card-solicitacao { background-color: #d1d5db; border-radius: 4px; padding: 15px; color: #000000; }
+        .card-solicitacao h3 { font-size: 14px; margin-bottom: 10px; font-weight: bold; }
+        .card-solicitacao .desc-box { background-color: #ffffff; border-radius: 12px; padding: 10px; font-size: 13px; font-weight: bold; margin-bottom: 12px; line-height: 1.4; }
+        
+        /* Rodapé interno do Card com metadados */
+        .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; font-weight: bold; margin-bottom: 5px; }
+        .view-details { font-size: 12px; font-weight: bold; text-decoration: underline; color: #000; cursor: pointer; display: block; margin-top: 5px; }
+
+        .map-container { background-color: #e3f2fd; border-radius: 4px; height: 450px; display: flex; align-items: center; justify-content: center; }
+        .map-icon { width: 60px; height: auto; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <aside class="aside">
+            <div class="profile-container"><div class="profile-icon"></div></div>
+            <button class="nav-btn" onclick="location.href='dashboard.html'">Geral</button>
+            <button class="nav-btn" onclick="location.href='nova_solicitacao.html'">Nova Solicitação</button>
+            <button class="nav-btn" onclick="location.href='comunidade.html'">Comunidade</button>
+            <button class="nav-btn active" onclick="location.href='minhas_solicitacoes.html'">Minhas Solicitações</button>
+        </aside>
+
+        <header class="header">Minhas Solicitações</header>
+
+        <main class="main">
+            <div class="kpi-row">
+                <div class="kpi-box">Total <div class="kpi-value-mock"></div></div>
+                <div class="kpi-box">Abertas <div class="kpi-value-mock"></div></div>
+                <div class="kpi-box">Em Análise <div class="kpi-value-mock">1</div></div>
+                <div class="kpi-box">Concluídas <div class="kpi-value-mock"></div></div>
+            </div>
+
+            <div class="content-grid">
+                <div class="feed-container">
+                    <div class="feed-title">Solicitações</div>
+                    
+                    <div class="card-solicitacao">
+                        <h3>Solicitação ID-05</h3>
+                        <div class="desc-box">
+                            Problema descrito
+                        </div>
+                        <div class="meta-grid">
+                            <div>STATUS: Em análise</div>
+                            <div>Bairro: Centro</div>
+                            <div>Data: 01/01/2026</div>
+                            <span class="view-details">Ver detalhes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-container">
+                    <svg class="map-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#4285F4"/>
+                    </svg>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

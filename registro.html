@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urbani - Criar Conta </title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            background-color: #1a1c24;
+            overflow: hidden;
+        }
+        /* Lado Esquerdo Escuro (40%) */
+        .auth-left {
+            width: 40%;
+            background-color: #1a1c24;
+            color: #ffffff;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid #2a2e38;
+        }
+        .auth-left .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff5a00;
+            letter-spacing: 1px;
+        }
+        .auth-left h1 {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+        .auth-left h1 span { color: #ff5a00; }
+        .auth-left p {
+            font-size: 14px;
+            color: #a0a5b0;
+            line-height: 1.6;
+        }
+        .auth-left .footer-text {
+            font-size: 11px;
+            color: #646975;
+        }
+        /* Lado Direito Claro (60%) */
+        .auth-right {
+            width: 60%;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 60px 80px;
+            overflow-y: auto;
+        }
+        .tabs {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        .tab {
+            font-size: 14px;
+            font-weight: 600;
+            color: #888;
+            margin-right: 30px;
+            text-decoration: none;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .tab.active {
+            color: #ff5a00;
+            border-bottom: 2px solid #ff5a00;
+        }
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 8px;
+        }
+        .form-subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        .form-group { margin-bottom: 18px; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            background-color: #e9e9e9;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #333;
+        }
+        .btn-submit {
+            background-color: #ff5a00;
+            color: #fff;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-left">
+        <div class="logo">URBANI</div>
+        <div>
+            <h1>Gestão urbana com <br><span>dados reais.</span></h1>
+            <p>A Urbani conecta cidadãos, servidores públicos e gestores municipais em uma plataforma inteligente de ocorrências urbanas.</p>
+        </div>
+        <div class="footer-text">© 2026 Urbani. Gestão Inteligente Municipal.</div>
+    </div>
+
+    <div class="auth-right">
+        <div class="tabs">
+            <a href="index.html" class="tab">Entrar</a>
+            <a href="registro.html" class="tab active">Criar conta cidadão</a>
+        </div>
+        <div class="form-title">Criar conta cidadão</div>
+        <div class="form-subtitle">Use sua conta para relatar ocorrências e acompanhar sua cidade.</div>
+        
+        <form action="processa_registro.php" method="POST">
+            
+        
+        <div class="form-group">
+    <label>Nome completo</label>
+    <input type="text" name="Nome" placeholder="Digite seu nome completo" required>
+</div>
+
+<div class="form-group">
+    <label>E-mail</label>
+    <input type="email" name="e_mail" placeholder="nome@exemplo.com" required>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>CPF (apenas números)</label>
+        <input type="text" name="CPF" maxlength="11" placeholder="12345678901" required>
+    </div>
+    <div class="form-group">
+        <label>Data de nascimento</label>
+        <input type="date" name="Data_nascimento" required>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Cidade</label>
+        <input type="text" name="Cidade" placeholder="Ex: São Paulo" required>
+    </div>
+    <div class="form-group">
+        <label>Bairro</label>
+        <input type="text" name="Bairro" placeholder="Ex: Centro" required>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Telefone / Celular</label>
+        <input type="text" name="Telefone" placeholder="(11) 99999-9999">
+    </div>
+    <div class="form-group">
+        <label>Senha de acesso</label>
+        <input type="password" name="senha" placeholder="Crie uma senha forte" required>
+    </div>
+</div>
+            <button type="submit" class="btn-submit">Cadastrar na plataforma</button>
+        </form>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
