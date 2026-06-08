@@ -10,13 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = Object.fromEntries(formData.entries());
 
             // Validação de tamanho mínimo do CPF em conformidade com o tipo CHAR(11) do banco
-            if (data.CPF.replace(/\D/g, "").length !== 11) {
+            if (data.cpf.replace(/\D/g, "").length !== 11) {
                 alert("O CPF deve conter exatamente 11 dígitos numéricos.");
                 return;
             }
 
             try {
-                const response = await fetch("auth.php?action=register", {
+                const response = await fetch("backend/auth.php?action=register", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(data)
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (result.success) {
                     alert("Sua conta foi criada com sucesso!");
-                    window.location.href = "login.html"; // Redireciona para a tela de login (Frame 1)
+                    window.location.href = "index.html"; // Redireciona para a tela de login (Frame 1)
                 } else {
                     alert("Erro ao cadastrar: " + result.message);
                 }
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = Object.fromEntries(formData.entries());
 
             try {
-                const response = await fetch("auth.php?action=login", {
+                const response = await fetch("backend/auth.php?action=login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(data)
@@ -57,8 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (result.success) {
                     // Salva as informações da sessão do Cidadão no navegador
-                    sessionStorage.setItem("user_id", result.user.id_cidadao);
-                    sessionStorage.setItem("user_name", result.user.Nome);
+                    sessionStorage.setItem("user_id", result.user.id_usuario);
+                    sessionStorage.setItem("user_name", result.user.nome);
+                    sessionStorage.setItem("user_type", result.user.tipo_usuario);
                     
                     // Avança o usuário de forma bem-sucedida para o Dashboard (Frame 4)
                     window.location.href = "dashboard.html"; 

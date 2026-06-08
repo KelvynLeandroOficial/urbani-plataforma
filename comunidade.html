@@ -41,6 +41,61 @@
         .btn-green { background-color: #4caf50; }
         .btn-red { background-color: #f44336; }
         .btn-orange { background-color: #ff9800; }
+        .coming-soon-container {
+    width: 100%;
+    min-height: 450px;
+    background-color: #1a1c24;
+    border-radius: 5px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coming-soon-card {
+    background-color: #d1d5db;
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 650px;
+    text-align: center;
+    color: #1a1c24;
+}
+
+.coming-soon-icon {
+    font-size: 56px;
+    margin-bottom: 20px;
+}
+
+.coming-soon-card h1 {
+    font-size: 28px;
+    color: #ff5a00;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.coming-soon-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.btn-back {
+    margin-top: 15px;
+    background-color: #ff5a00;
+    color: #ffffff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.btn-back:hover {
+    opacity: 0.9;
+}
     </style>
 </head>
 <body>
@@ -57,51 +112,27 @@
         <header class="header">Comunidade</header>
 
         <main class="main">
-            <div class="kpi-row">
-                <div class="kpi-box">Solicitações Públicas <div class="kpi-value-mock"></div></div>
-                <div class="kpi-box">Mais Apoiadas <div class="kpi-value-mock"></div></div>
-                <div class="kpi-box">Em Análise <div class="kpi-value-mock">1</div></div>
-                <div class="kpi-box">Bairros Ativos <div class="kpi-value-mock"></div></div>
-            </div>
-
-            <div class="inline-filter-bar">
-                [Cidade ▼] [Bairro ▼] [Categoria ▼] [Status ▼] [Mais apoiadas ▼]
-            </div>
-
-            <div class="cards-grid">
-                <!-- Card 1 -->
-                <div class="card-solicitacao">
-                    <h3>Solicitação ID-05</h3>
-                    <p class="author">Usuário escreveu:</p>
-                    <p class="location">Rua, Bairro, Cidade-Estado</p>
-                    <div class="desc-box">Buraco enorme em frente causando desvios forçados e congestionamento</div>
-                    <div class="card-actions"><button class="btn-action btn-green">Apoiar</button><button class="btn-action btn-red">Denunciar</button><button class="btn-action btn-orange">Ver mais</button></div>
+            <section class="coming-soon-container">
+                <div class="coming-soon-card">
+                    <div class="coming-soon-icon">🚧</div>
+        
+                    <h1>Comunidade em breve</h1>
+        
+                    <p>
+                        A área de comunidade ainda está em desenvolvimento.
+                    </p>
+        
+                    <p>
+                        Em breve, os cidadãos poderão acompanhar solicitações públicas,
+                        apoiar ocorrências, comentar problemas urbanos e participar mais
+                        ativamente da melhoria da cidade.
+                    </p>
+        
+                    <button class="btn-back" onclick="location.href='dashboard.html'">
+                        Voltar para o painel
+                    </button>
                 </div>
-                <!-- Card 2 -->
-                <div class="card-solicitacao">
-                    <h3>Solicitação ID-05</h3>
-                    <p class="author">Usuário escreveu:</p>
-                    <p class="location">Rua, Bairro, Cidade-Estado</p>
-                    <div class="desc-box">Buraco enorme em frente causando desvios forçados e congestionamento</div>
-                    <div class="card-actions"><button class="btn-action btn-green">Apoiar</button><button class="btn-action btn-red">Denunciar</button><button class="btn-action btn-orange">Ver mais</button></div>
-                </div>
-                <!-- Card 3 -->
-                <div class="card-solicitacao">
-                    <h3>Solicitação ID-05</h3>
-                    <p class="author">Usuário escreveu:</p>
-                    <p class="location">Rua, Bairro, Cidade-Estado</p>
-                    <div class="desc-box">Buraco enorme em frente causando desvios forçados e congestionamento</div>
-                    <div class="card-actions"><button class="btn-action btn-green">Apoiar</button><button class="btn-action btn-red">Denunciar</button><button class="btn-action btn-orange">Ver mais</button></div>
-                </div>
-                <!-- Card 4 -->
-                <div class="card-solicitacao">
-                    <h3>Solicitação ID-05</h3>
-                    <p class="author">Usuário escreveu:</p>
-                    <p class="location">Rua, Bairro, Cidade-Estado</p>
-                    <div class="desc-box">Buraco enorme em frente causando desvios forçados e congestionamento</div>
-                    <div class="card-actions"><button class="btn-action btn-green">Apoiar</button><button class="btn-action btn-red">Denunciar</button><button class="btn-action btn-orange">Ver mais</button></div>
-                </div>
-            </div>
+            </section>
         </main>
     </div>
 

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urbani - Gestão Urbana Inteligente</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --dark: #1a1c24;
+            --orange: #ff5a00;
+            --light: #f7f9fa;
+            --gray: #d1d5db;
+            --muted: #a0a5b0;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .navbar {
+            width: 100%;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--dark);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            color: var(--orange);
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-login {
+            background-color: var(--orange);
+            color: var(--white) !important;
+            padding: 11px 22px;
+            border-radius: 30px;
+        }
+
+        .hero {
+            min-height: 88vh;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
+            padding: 70px 8%;
+            background:
+                radial-gradient(circle at top right, rgba(255, 90, 0, 0.15), transparent 35%),
+                linear-gradient(135deg, #ffffff 0%, #f7f9fa 100%);
+        }
+
+        .hero-content .tag {
+            display: inline-block;
+            background-color: var(--dark);
+            color: var(--orange);
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            color: var(--dark);
+        }
+
+        .hero h1 span {
+            color: var(--orange);
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #4b5563;
+            max-width: 620px;
+            margin-bottom: 32px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 15px 28px;
+            border-radius: 35px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background-color: var(--orange);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background-color: var(--dark);
+            color: var(--orange);
+        }
+
+        .hero-card {
+            background-color: var(--dark);
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: 0 30px 80px rgba(26, 28, 36, 0.18);
+        }
+
+        .mock-header {
+            background-color: var(--orange);
+            height: 54px;
+            border-radius: 22px;
+            margin-bottom: 18px;
+        }
+
+        .mock-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .mock-box {
+            background-color: var(--white);
+            border-radius: 14px;
+            min-height: 82px;
+            padding: 14px;
+        }
+
+        .mock-box strong {
+            display: block;
+            color: var(--orange);
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .mock-box span {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .mock-map {
+            height: 230px;
+            background-color: #e3f2fd;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pin {
+            width: 54px;
+            height: 54px;
+            background-color: #4285f4;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            position: relative;
+        }
+
+        .pin::after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-color: var(--white);
+            border-radius: 50%;
+            position: absolute;
+            top: 17px;
+            left: 17px;
+        }
+
+        .section {
+            padding: 90px 8%;
+        }
+
+        .section-dark {
+            background-color: var(--dark);
+            color: var(--white);
+        }
+
+        .section-title {
+            max-width: 760px;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            margin-bottom: 14px;
+        }
+
+        .section-title h2 span {
+            color: var(--orange);
+        }
+
+        .section-title p {
+            color: #6b7280;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .section-dark .section-title p {
+            color: var(--muted);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 22px;
+            padding: 28px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .section-dark .card {
+            background-color: #242733;
+            border: 1px solid #343846;
+        }
+
+        .card-number {
+            width: 42px;
+            height: 42px;
+            background-color: var(--orange);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .section-dark .card p {
+            color: var(--muted);
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .feature-item {
+            background-color: #ffffff;
+            border-radius: 18px;
+            padding: 20px;
+            border-left: 5px solid var(--orange);
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .cta {
+            background-color: var(--orange);
+            color: var(--white);
+            text-align: center;
+            padding: 90px 8%;
+        }
+
+        .cta h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            font-size: 17px;
+            max-width: 720px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+        }
+
+        .cta .btn-secondary {
+            background-color: var(--dark);
+            color: var(--white);
+            display: inline-block;
+        }
+
+        .footer {
+            background-color: var(--dark);
+            color: var(--muted);
+            padding: 28px 8%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .hero,
+            .split {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">URBANI</div>
+
+        <div class="nav-links">
+            <a href="#problema">Problema</a>
+            <a href="#solucao">Solução</a>
+            <a href="#como-funciona">Como funciona</a>
+            <a href="index.html" class="btn-login">Acessar plataforma</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="tag">Gestão urbana inteligente</span>
+
+            <h1>
+                Transforme problemas urbanos em <span>dados acionáveis.</span>
+            </h1>
+
+            <p>
+                A Urbani conecta cidadãos, prefeitura e gestores públicos em uma plataforma simples
+                para registrar, acompanhar e priorizar solicitações urbanas com base em dados reais.
+            </p>
+
+            <div class="hero-actions">
+                <a href="registro.html" class="btn-primary">Criar conta cidadão</a>
+                <a href="index.html" class="btn-secondary">Entrar na plataforma</a>
+            </div>
+        </div>
+
+        <div class="hero-card">
+            <div class="mock-header"></div>
+
+            <div class="mock-grid">
+                <div class="mock-box">
+                    <strong>127</strong>
+                    <span>Solicitações abertas</span>
+                </div>
+
+                <div class="mock-box">
+                    <strong>43</strong>
+                    <span>Em análise</span>
+                </div>
+
+                <div class="mock-box">
+                    <strong>18</strong>
+                    <span>Bairros ativos</span>
+                </div>
+
+                <div class="mock-box">
+                    <strong>91%</strong>
+                    <span>Dados organizados</span>
+                </div>
+            </div>
+
+            <div class="mock-map">
+                <div class="pin"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="problema">
+        <div class="section-title">
+            <h2>Cidades não falham por falta de problemas. Falham por falta de <span>visibilidade.</span></h2>
+            <p>
+                Buracos, iluminação precária, descarte irregular, alagamentos e problemas de sinalização
+                muitas vezes se perdem em mensagens soltas, planilhas confusas e canais sem rastreabilidade.
+            </p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <div class="card-number">1</div>
+                <h3>Solicitações dispersas</h3>
+                <p>Ocorrências chegam por canais diferentes e dificultam o acompanhamento real da demanda urbana.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-number">2</div>
+                <h3>Baixa priorização</h3>
+                <p>Sem dados centralizados, é difícil saber o que é urgente, recorrente ou mais apoiado pela população.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-number">3</div>
+                <h3>Pouca transparência</h3>
+                <p>O cidadão registra um problema, mas raramente acompanha o andamento de forma clara e organizada.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-dark" id="solucao">
+        <div class="split">
+            <div class="section-title">
+                <h2>A Urbani organiza a cidade em uma visão <span>simples, visual e estratégica.</span></h2>
+                <p>
+                    A plataforma permite que cidadãos registrem solicitações e que gestores acompanhem
+                    informações urbanas em um ambiente centralizado, com status, localização, categoria e histórico.
+                </p>
+            </div>
+
+            <div class="feature-list">
+                <div class="feature-item">Registro de solicitações por categoria</div>
+                <div class="feature-item">Dashboard com indicadores em tempo real</div>
+                <div class="feature-item">Histórico individual do cidadão</div>
+                <div class="feature-item">Base para tomada de decisão pública</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="como-funciona">
+        <div class="section-title">
+            <h2>Como funciona</h2>
+            <p>
+                Um fluxo direto para transformar reclamações soltas em informações estruturadas.
+            </p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <div class="card-number">1</div>
+                <h3>O cidadão registra</h3>
+                <p>Ele informa título, descrição, localidade, urgência e categoria do problema urbano.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-number">2</div>
+                <h3>A plataforma organiza</h3>
+                <p>Os dados são salvos no banco e aparecem automaticamente nos painéis da aplicação.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-number">3</div>
+                <h3>A gestão acompanha</h3>
+                <p>Solicitações podem ser analisadas por status, bairro, urgência e volume de ocorrências.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Uma cidade melhor começa com dados melhores.</h2>
+        <p>
+            A Urbani é um projeto de tecnologia urbana criado para aproximar cidadãos e gestão pública
+            por meio de informação clara, organizada e acionável.
+        </p>
+
+        <a href="registro.html" class="btn-secondary">Começar agora</a>
+    </section>
+
+    <footer class="footer">
+        <span>© 2026 Urbani. Gestão Inteligente Municipal.</span>
+        <span>Projeto acadêmico de tecnologia urbana</span>
+    </footer>
+
+</body>
+</html>

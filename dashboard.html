@@ -121,9 +121,15 @@
         }
         .filter-input-mock {
             width: 85%;
-            height: 22px;
+            min-height: 22px;
             background-color: #ffffff;
             border-radius: 4px;
+            color: #1a1c24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         /* Corpo central em duas colunas */
@@ -203,6 +209,214 @@
             justify-content: center;
         }
         .map-icon { width: 60px; height: auto; }
+        /* ========================= */
+/* RESPONSIVIDADE - DASHBOARD */
+/* ========================= */
+
+/* Tablets e notebooks menores */
+@media (max-width: 1024px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        grid-template-columns: 180px 1fr;
+        grid-template-rows: 70px 1fr;
+        gap: 15px;
+    }
+
+    .aside {
+        padding: 25px 10px;
+    }
+
+    .profile-container {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 20px;
+    }
+
+    .nav-btn {
+        font-size: 10px;
+        padding: 12px 8px;
+    }
+
+    .header {
+        font-size: 22px;
+    }
+
+    .filter-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-container {
+        height: 350px;
+    }
+}
+
+/* Celulares */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+        overflow-x: hidden;
+        align-items: flex-start;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: none;
+        gap: 12px;
+    }
+
+    .aside {
+        width: 100%;
+        min-height: auto;
+        border-radius: 0;
+        padding: 12px;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        overflow-x: auto;
+        gap: 10px;
+    }
+
+    .profile-container {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        margin-bottom: 0;
+    }
+
+    .profile-icon {
+        width: 22px;
+        height: 22px;
+        border-width: 2px;
+    }
+
+    .profile-icon::after {
+        width: 30px;
+        height: 14px;
+        top: 22px;
+        left: -6px;
+        border-width: 2px;
+    }
+
+    .nav-btn {
+        min-width: 120px;
+        width: auto;
+        padding: 10px 12px;
+        font-size: 9px;
+        border-radius: 25px;
+        white-space: nowrap;
+    }
+
+    .header {
+        margin: 0 10px;
+        min-height: 58px;
+        border-radius: 28px;
+        font-size: 18px;
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .main {
+        padding: 0 10px 20px;
+        gap: 14px;
+    }
+
+    .filter-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .filter-box {
+        padding: 12px;
+        font-size: 10px;
+        border-radius: 12px;
+    }
+
+    .filter-input-mock {
+        width: 100%;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .feed-container {
+        min-height: auto;
+        padding: 14px;
+    }
+
+    .feed-title {
+        font-size: 12px;
+        padding: 9px;
+    }
+
+    .card-solicitacao {
+        padding: 12px;
+    }
+
+    .card-solicitacao h3 {
+        font-size: 13px;
+    }
+
+    .card-solicitacao p.author,
+    .card-solicitacao p.location {
+        font-size: 11px;
+    }
+
+    .card-solicitacao .desc-box {
+        font-size: 12px;
+    }
+
+    .card-actions {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .btn-action {
+        width: 100%;
+        padding: 9px;
+        font-size: 11px;
+    }
+
+    .map-container {
+        height: 280px;
+    }
+
+    .map-icon {
+        width: 48px;
+    }
+}
+
+/* Celulares muito pequenos */
+@media (max-width: 480px) {
+    .header {
+        font-size: 15px;
+        min-height: 50px;
+    }
+
+    .nav-btn {
+        min-width: 105px;
+        font-size: 8px;
+        padding: 9px 10px;
+    }
+
+    .filter-box {
+        font-size: 9px;
+    }
+
+    .map-container {
+        height: 230px;
+    }
+}
     </style>
 </head>
 <body>
@@ -220,33 +434,40 @@
 
         <main class="main">
             <div class="filter-row">
-                <div class="filter-box">Escolha a Cidade <div class="filter-input-mock"></div></div>
-                <div class="filter-box">Solicitações em Andamento <div class="filter-input-mock"></div></div>
-                <div class="filter-box">Em Análise <div class="filter-input-mock"></div></div>
-                <div class="filter-box">Novas <div class="filter-input-mock"></div></div>
+                <div class="filter-box">
+                    Total
+                    <div class="filter-input-mock" id="totalSolicitacoes">0</div>
+                </div>
+        
+                <div class="filter-box">
+                    Solicitações em Andamento
+                    <div class="filter-input-mock" id="qtdAndamento">0</div>
+                </div>
+        
+                <div class="filter-box">
+                    Em Análise
+                    <div class="filter-input-mock" id="qtdAnalise">0</div>
+                </div>
+        
+                <div class="filter-box">
+                    Novas
+                    <div class="filter-input-mock" id="qtdNovas">0</div>
+                </div>
             </div>
-
+        
             <div class="content-grid">
                 <div class="feed-container">
                     <div class="feed-title">Solicitações Recentes</div>
-                    
-                    <div class="card-solicitacao">
-                        <h3>Solicitação ID-05</h3>
-                        <p class="author">Usuário escreveu:</p>
-                        <p class="location">Rua, Bairro, Cidade-Estado</p>
-                        <div class="desc-box">
-                            Problema descrito
-                        </div>
-                        <div class="card-actions">
-                            <button class="btn-action btn-green">Apoiar</button>
-                            <button class="btn-action btn-red">Denunciar</button>
-                            <button class="btn-action btn-orange">Ver mais</button>
+        
+                    <div id="listaSolicitacoes">
+                        <div class="card-solicitacao">
+                            <h3>Carregando...</h3>
+                            <p class="author">Buscando solicitações no banco de dados.</p>
                         </div>
                     </div>
                 </div>
-
+        
                 <div class="map-container">
-                    <!-- Marcador imitando o ícone do Google Maps do wireframe -->
                     <svg class="map-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#4285F4"/>
                     </svg>
@@ -254,6 +475,121 @@
             </div>
         </main>
     </div>
+    <script>
+        const userId = sessionStorage.getItem("user_id");
+        const userName = sessionStorage.getItem("user_name");
+        const userType = sessionStorage.getItem("user_type");
+    
+        if (!userId) {
+            alert("Você precisa fazer login para acessar o painel.");
+            window.location.href = "index.html";
+        }
+    
+        function sair() {
+            sessionStorage.clear();
+            window.location.href = "index.html";
+        }
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            carregarDashboard();
+        });
+    
+        async function carregarDashboard() {
+            try {
+                const response = await fetch("backend/dashboard.php");
+                const result = await response.json();
+    
+                if (!result.success) {
+                    alert("Erro ao carregar dados do dashboard: " + result.message);
+                    return;
+                }
+    
+                preencherResumo(result.resumo);
+                preencherSolicitacoes(result.solicitacoes);
+    
+            } catch (error) {
+                console.error("Erro ao carregar dashboard:", error);
+                alert("Erro ao conectar com o servidor.");
+            }
+        }
+    
+        function preencherResumo(resumo) {
+            const totalSolicitacoes = document.getElementById("totalSolicitacoes");
+            const qtdAndamento = document.getElementById("qtdAndamento");
+            const qtdAnalise = document.getElementById("qtdAnalise");
+            const qtdNovas = document.getElementById("qtdNovas");
+    
+            if (totalSolicitacoes) {
+                totalSolicitacoes.textContent = resumo.total ?? 0;
+            }
+    
+            if (qtdAndamento) {
+                qtdAndamento.textContent = resumo.em_andamento ?? 0;
+            }
+    
+            if (qtdAnalise) {
+                qtdAnalise.textContent = resumo.em_analise ?? 0;
+            }
+    
+            if (qtdNovas) {
+                qtdNovas.textContent = resumo.aberta ?? 0;
+            }
+        }
+    
+        function preencherSolicitacoes(solicitacoes) {
+            const lista = document.getElementById("listaSolicitacoes");
+    
+            if (!lista) {
+                return;
+            }
+    
+            if (!solicitacoes || solicitacoes.length === 0) {
+                lista.innerHTML = `
+                    <div class="card-solicitacao">
+                        <h3>Nenhuma solicitação encontrada</h3>
+                        <p class="author">Ainda não existem solicitações cadastradas.</p>
+                        <div class="desc-box">
+                            Quando os cidadãos criarem solicitações, elas aparecerão aqui.
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+    
+            lista.innerHTML = "";
+    
+            solicitacoes.forEach((solicitacao) => {
+                const card = document.createElement("div");
+                card.classList.add("card-solicitacao");
+    
+                const localizacao = [
+                    solicitacao.rua,
+                    solicitacao.bairro,
+                    solicitacao.cidade,
+                    solicitacao.uf
+                ].filter(Boolean).join(", ");
+    
+                card.innerHTML = `
+                    <h3>Solicitação ID-${solicitacao.id_solicitacao}</h3>
+                    <p class="author">${solicitacao.nome_usuario} escreveu:</p>
+                    <p class="location">${localizacao || "Localização não informada"}</p>
+    
+                    <div class="desc-box">
+                        <strong>${solicitacao.titulo}</strong><br>
+                        ${solicitacao.descricao}
+                    </div>
+    
+                    <div class="card-actions">
+                        <button class="btn-action btn-green">Apoiar</button>
+                        <button class="btn-action btn-red">Denunciar</button>
+                        <button class="btn-action btn-orange">Ver mais</button>
+                    </div>
+                `;
+    
+                lista.appendChild(card);
+            });
+        }
+    </script>
 
 </body>
 </html>

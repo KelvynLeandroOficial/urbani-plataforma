@@ -28,7 +28,16 @@
         /* Divisão Inferior (Histórico + Mapa) */
         .content-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; align-items: start; }
         
-        .feed-container { background-color: #1a1c24; border-radius: 5px; padding: 20px; display: flex; flex-direction: column; gap: 15px; min-height: 450px; }
+        .feed-container {
+            background-color: #1a1c24;
+            border-radius: 5px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: 450px;
+            overflow-y: auto;
+       }
         .feed-title { background-color: #ffffff; color: #1a1c24; padding: 10px; border-radius: 15px; font-size: 13px; font-weight: bold; text-align: center; text-transform: uppercase; }
 
         /* Card Customizado para Histórico Próprio do Cidadão */
@@ -59,26 +68,36 @@
 
         <main class="main">
             <div class="kpi-row">
-                <div class="kpi-box">Total <div class="kpi-value-mock"></div></div>
-                <div class="kpi-box">Abertas <div class="kpi-value-mock"></div></div>
-                <div class="kpi-box">Em Análise <div class="kpi-value-mock">1</div></div>
-                <div class="kpi-box">Concluídas <div class="kpi-value-mock"></div></div>
+                <div class="kpi-box">
+                    Total
+                    <div class="kpi-value-mock" id="totalMinhas">0</div>
+                </div>
+            
+                <div class="kpi-box">
+                    Abertas
+                    <div class="kpi-value-mock" id="abertasMinhas">0</div>
+                </div>
+            
+                <div class="kpi-box">
+                    Em Análise
+                    <div class="kpi-value-mock" id="analiseMinhas">0</div>
+                </div>
+            
+                <div class="kpi-box">
+                    Concluídas
+                    <div class="kpi-value-mock" id="concluidasMinhas">0</div>
+                </div>
             </div>
-
             <div class="content-grid">
                 <div class="feed-container">
                     <div class="feed-title">Solicitações</div>
-                    
-                    <div class="card-solicitacao">
-                        <h3>Solicitação ID-05</h3>
-                        <div class="desc-box">
-                            Problema descrito
-                        </div>
-                        <div class="meta-grid">
-                            <div>STATUS: Em análise</div>
-                            <div>Bairro: Centro</div>
-                            <div>Data: 01/01/2026</div>
-                            <span class="view-details">Ver detalhes</span>
+                
+                    <div id="listaMinhasSolicitacoes">
+                        <div class="card-solicitacao">
+                            <h3>Carregando...</h3>
+                            <div class="desc-box">
+                                Buscando suas solicitações no banco de dados.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -91,6 +110,112 @@
             </div>
         </main>
     </div>
+
+    <script>
+        const userId = sessionStorage.getItem("user_id");
+    
+        if (!userId) {
+            alert("Você precisa fazer login para acessar suas solicitações.");
+            window.location.href = "index.html";
+        }
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            carregarMinhasSolicitacoes();
+        });
+    
+        async function carregarMinhasSolicitacoes() {
+            try {
+                const response = await fetch("backend/minhas_solicitacoes.php?id_usuario=" + encodeURIComponent(userId));
+                const result = await response.json();
+    
+                if (!result.success) {
+                    alert("Erro ao carregar solicitações: " + result.message);
+                    return;
+                }
+    
+                preencherResumo(result.resumo);
+                preencherLista(result.solicitacoes);
+    
+            } catch (error) {
+                console.error("Erro ao carregar minhas solicitações:", error);
+                alert("Erro ao conectar com o servidor.");
+            }
+        }
+    
+        function preencherResumo(resumo) {
+            document.getElementById("totalMinhas").textContent = resumo.total ?? 0;
+            document.getElementById("abertasMinhas").textContent = resumo.aberta ?? 0;
+            document.getElementById("analiseMinhas").textContent = resumo.em_analise ?? 0;
+            document.getElementById("concluidasMinhas").textContent = resumo.resolvida ?? 0;
+        }
+    
+        function traduzirStatus(status) {
+            const statusMap = {
+                "aberta": "Aberta",
+                "em_analise": "Em análise",
+                "em_andamento": "Em andamento",
+                "resolvida": "Resolvida",
+                "cancelada": "Cancelada"
+            };
+    
+            return statusMap[status] || status;
+        }
+    
+        function formatarData(dataOriginal) {
+            if (!dataOriginal) {
+                return "Data não informada";
+            }
+    
+            const data = new Date(dataOriginal.replace(" ", "T"));
+    
+            if (isNaN(data.getTime())) {
+                return dataOriginal;
+            }
+    
+            return data.toLocaleDateString("pt-BR");
+        }
+    
+        function preencherLista(solicitacoes) {
+            const lista = document.getElementById("listaMinhasSolicitacoes");
+    
+            if (!solicitacoes || solicitacoes.length === 0) {
+                lista.innerHTML = `
+                    <div class="card-solicitacao">
+                        <h3>Nenhuma solicitação encontrada</h3>
+                        <div class="desc-box">
+                            Você ainda não criou nenhuma solicitação.
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+    
+            lista.innerHTML = "";
+    
+            solicitacoes.forEach((solicitacao) => {
+                const card = document.createElement("div");
+                card.classList.add("card-solicitacao");
+    
+                card.innerHTML = `
+                    <h3>Solicitação ID-${solicitacao.id_solicitacao}</h3>
+    
+                    <div class="desc-box">
+                        <strong>${solicitacao.titulo}</strong><br>
+                        ${solicitacao.descricao}
+                    </div>
+    
+                    <div class="meta-grid">
+                        <div>STATUS: ${traduzirStatus(solicitacao.status_solicitacao)}</div>
+                        <div>Bairro: ${solicitacao.bairro || "Não informado"}</div>
+                        <div>Data: ${formatarData(solicitacao.criado_em)}</div>
+                        <span class="view-details">Ver detalhes</span>
+                    </div>
+                `;
+    
+                lista.appendChild(card);
+            });
+        }
+    </script>
 
 </body>
 </html>
